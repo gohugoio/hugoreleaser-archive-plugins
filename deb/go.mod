@@ -3,7 +3,7 @@ module github.com/gohugoio/hugoreleaser-archive-plugins/deb
 go 1.19
 
 require (
-	github.com/gohugoio/hugoreleaser-plugins-api v0.1.0
+	github.com/gohugoio/hugoreleaser-plugins-api v0.5.0
 	github.com/goreleaser/nfpm/v2 v2.18.1
 )
 
@@ -17,7 +17,7 @@ require (
 	github.com/ProtonMail/go-crypto v0.0.0-20220812175011-7fcef0dbe794 // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/bep/execrpc v0.7.0 // indirect
-	github.com/bep/helpers v0.2.0 // indirect
+	github.com/bep/helpers v0.3.1 // indirect
 	github.com/blakesmith/ar v0.0.0-20190502131153-809d4375e1fb // indirect
 	github.com/cloudflare/circl v1.2.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
@@ -38,7 +38,7 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
-	github.com/pelletier/go-toml/v2 v2.0.3 // indirect
+	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/ulikunitz/xz v0.5.10 // indirect
 	github.com/xanzy/ssh-agent v0.3.1 // indirect
