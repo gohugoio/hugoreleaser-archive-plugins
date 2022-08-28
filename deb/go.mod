@@ -3,8 +3,7 @@ module github.com/gohugoio/hugoreleaser-archive-plugins/deb
 go 1.19
 
 require (
-	github.com/gohugoio/hugoreleaser-plugins-api v0.0.0-20220822102545-79e32bdde738
-	github.com/gohugoio/hugoreleaser/plugins v0.1.1-0.20220822083757-38d81884db04
+	github.com/gohugoio/hugoreleaser-plugins-api v0.1.0
 	github.com/goreleaser/nfpm/v2 v2.18.1
 )
 
