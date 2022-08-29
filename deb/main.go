@@ -16,6 +16,7 @@ package main
 
 import (
 	"io"
+	"io/fs"
 	"log"
 	"os"
 	"path/filepath"
@@ -86,12 +87,12 @@ type debArchivist struct {
 	settings  Settings
 }
 
-func (a *debArchivist) Add(sourceFilename, targetPath string) error {
+func (a *debArchivist) Add(sourceFilename, targetPath string, mode fs.FileMode) error {
 	a.files = append(a.files, &files.Content{
 		Source:      filepath.ToSlash(sourceFilename),
 		Destination: targetPath,
 		FileInfo: &files.ContentFileInfo{
-			Mode: 0o755,
+			Mode: mode,
 		},
 	})
 
@@ -160,7 +161,10 @@ func createArchive(req archiveplugin.Request) error {
 	}
 
 	for _, file := range req.Files {
-		archivist.Add(file.SourcePathAbs, file.TargetPath)
+		if file.Mode == 0 {
+			file.Mode = 0644
+		}
+		archivist.Add(file.SourcePathAbs, file.TargetPath, file.Mode)
 	}
 
 	return archivist.Finalize()
