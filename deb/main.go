@@ -149,7 +149,7 @@ func createArchive(req archiveplugin.Request) error {
 	}
 	defer f.Close()
 
-	settings, err := model.FromMap[Settings](req.Settings)
+	settings, err := model.FromMap[any, Settings](req.Settings)
 	if err != nil {
 		return err
 	}
