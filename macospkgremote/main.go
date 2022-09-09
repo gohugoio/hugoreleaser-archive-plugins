@@ -173,6 +173,8 @@ func startLocalServer() error {
 			if err != nil {
 				return s3rpc.Output{}, err
 			}
+			settings.AppleSigningIdentity = signingID
+			settings.NeedsAppleSettings = true
 
 			archiver, err := archivehelpers.New(archivehelpers.TypeTarGz)
 			if err != nil {
