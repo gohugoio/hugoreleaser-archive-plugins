@@ -48,8 +48,8 @@ github.com/bep/awscreate/s3rpccreate v0.2.0 h1:VnvRnJiZEF1gPnc/bzlKNif1iQjpApSb3
 github.com/bep/awscreate/s3rpccreate v0.2.0/go.mod h1:BBBdItVHMbeqs+FD57Hv0o/bT5m22j28kANxJU5Gd2o=
 github.com/bep/buildpkg v0.1.0 h1:CSMyAlAv+ppZ91RNwdegsXDPnfSfBCCZq6Gv1vJOnZ0=
 github.com/bep/buildpkg v0.1.0/go.mod h1:4kB6A8qP0+MfEi5XRMkFO4J+qV/EIJrAVwjtpemWadY=
-github.com/bep/execrpc v0.9.0 h1:SIQnFxUIpJEbfR3FTp94OinpqBrZDQDVWbJ82pgJ77k=
-github.com/bep/execrpc v0.9.0/go.mod h1:lGHGK8NX0KvfhlRNH/SebW1quHGwXFeE3Ba+2KLtmrM=
+github.com/bep/execrpc v0.10.0 h1:Y8S8pZOFZI/zo95RMqgri98eIFaZEqZ41tbF89hSx/A=
+github.com/bep/execrpc v0.10.0/go.mod h1:lGHGK8NX0KvfhlRNH/SebW1quHGwXFeE3Ba+2KLtmrM=
 github.com/bep/helpers v0.5.0 h1:rneezhnG7GzLFlsEWO/EnleaBRuluBDGFimalO6Y50o=
 github.com/bep/helpers v0.5.0/go.mod h1:dSqCzIvHbzsk5YOesp1M7sKAq5xUcvANsRoKdawxH4Q=
 github.com/bep/macosnotarylib v0.1.0 h1:3Kl63q2qVx8oyzMKK5UOABlY1EOTW3OHBI3KnPsDwYM=
@@ -63,8 +63,8 @@ github.com/frankban/quicktest v1.14.6 h1:7Xjx+VpznH+oBnejlPUj8oUpdxnVs4f8XU8WnHk
 github.com/frankban/quicktest v1.14.6/go.mod h1:4ptaffx2x8+WTWXmUCuVU6aPUX1/Mz7zb5vbUoiM6w0=
 github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.1.0 h1:jMIY8uVn6Ae61nT1TnXu+9vumadv+rbqtbj7zKOysLk=
 github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.1.0/go.mod h1:HqHxC0Xe+d8HdhJb247HvPEuK2m2FHhzA3gNYxKnlS0=
-github.com/gohugoio/hugoreleaser-plugins-api v0.7.1-0.20241219113101-e613cfc24c82 h1:IdctCMa9e/yCyJGQU7IeYmcYYHyiZccu5OcFwSOJoTo=
-github.com/gohugoio/hugoreleaser-plugins-api v0.7.1-0.20241219113101-e613cfc24c82/go.mod h1:3pnrMYKsGrzACVwKU/R72UpRUnR+W7E5laXurS2QGMc=
+github.com/gohugoio/hugoreleaser-plugins-api v0.8.0 h1:H3qH9Ra7yg5ZZLFtkBYJqTbr1oAO7wkysMvcmSUauV0=
+github.com/gohugoio/hugoreleaser-plugins-api v0.8.0/go.mod h1:Qheg3q6TF7pq9etJBNceTqGaM1VfkYDnm2k2KIIC/Ac=
 github.com/golang-jwt/jwt/v4 v4.4.3-0.20220820150458-bfea432b1a9d h1:g83sVsMB9c5zW6RG7a767AkmCkAIbQEX6Z7UvEKgTjU=
 github.com/golang-jwt/jwt/v4 v4.4.3-0.20220820150458-bfea432b1a9d/go.mod h1:m21LjoU+eqJr34lmDMbreY2eSTRJ1cv77w39/MY0Ch0=
 github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=

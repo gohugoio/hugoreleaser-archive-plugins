@@ -6,8 +6,8 @@ toolchain go1.22.0
 
 require (
 	github.com/bep/buildpkg v0.1.0
-	github.com/bep/execrpc v0.9.0
-	github.com/gohugoio/hugoreleaser-plugins-api v0.7.1-0.20241219113101-e613cfc24c82
+	github.com/bep/execrpc v0.10.0
+	github.com/gohugoio/hugoreleaser-plugins-api v0.8.0
 )
 
 require (
