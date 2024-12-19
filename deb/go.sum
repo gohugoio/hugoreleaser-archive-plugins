@@ -25,8 +25,8 @@ github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239 h1:kFOfPq6dUM1hTo
 github.com/anmitsu/go-shlex v0.0.0-20161002113705-648efa622239/go.mod h1:2FmKhYUyUczH0OGQWaF5ceTx0UBShxjsH6f8oGKYe2c=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5 h1:0CwZNZbxp69SHPdPJAN/hZIm0C4OItdklCFmMRWYpio=
 github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5/go.mod h1:wHh0iHkYZB8zMSxRWpUBQtwG5a7fFgvEO+odwuTv2gs=
-github.com/bep/execrpc v0.9.0 h1:SIQnFxUIpJEbfR3FTp94OinpqBrZDQDVWbJ82pgJ77k=
-github.com/bep/execrpc v0.9.0/go.mod h1:lGHGK8NX0KvfhlRNH/SebW1quHGwXFeE3Ba+2KLtmrM=
+github.com/bep/execrpc v0.10.0 h1:Y8S8pZOFZI/zo95RMqgri98eIFaZEqZ41tbF89hSx/A=
+github.com/bep/execrpc v0.10.0/go.mod h1:lGHGK8NX0KvfhlRNH/SebW1quHGwXFeE3Ba+2KLtmrM=
 github.com/bep/helpers v0.5.0 h1:rneezhnG7GzLFlsEWO/EnleaBRuluBDGFimalO6Y50o=
 github.com/bep/helpers v0.5.0/go.mod h1:dSqCzIvHbzsk5YOesp1M7sKAq5xUcvANsRoKdawxH4Q=
 github.com/blakesmith/ar v0.0.0-20190502131153-809d4375e1fb h1:m935MPodAbYS46DG4pJSv7WO+VECIWUQ7OJYSoTrMh4=
@@ -63,8 +63,8 @@ github.com/go-git/go-git/v5 v5.4.2 h1:BXyZu9t0VkbiHtqrsvdq39UDhGJTl1h55VW6CSC4aY
 github.com/go-git/go-git/v5 v5.4.2/go.mod h1:gQ1kArt6d+n+BGd+/B/I74HwRTLhth2+zti4ihgckDc=
 github.com/gobwas/glob v0.2.3 h1:A4xDbljILXROh+kObIiy5kIaPYD8e96x1tgBhUI5J+Y=
 github.com/gobwas/glob v0.2.3/go.mod h1:d3Ez4x06l9bZtSvzIay5+Yzi0fmZzPgnTbPcKjJAkT8=
-github.com/gohugoio/hugoreleaser-plugins-api v0.7.1-0.20241219113101-e613cfc24c82 h1:IdctCMa9e/yCyJGQU7IeYmcYYHyiZccu5OcFwSOJoTo=
-github.com/gohugoio/hugoreleaser-plugins-api v0.7.1-0.20241219113101-e613cfc24c82/go.mod h1:3pnrMYKsGrzACVwKU/R72UpRUnR+W7E5laXurS2QGMc=
+github.com/gohugoio/hugoreleaser-plugins-api v0.8.0 h1:H3qH9Ra7yg5ZZLFtkBYJqTbr1oAO7wkysMvcmSUauV0=
+github.com/gohugoio/hugoreleaser-plugins-api v0.8.0/go.mod h1:Qheg3q6TF7pq9etJBNceTqGaM1VfkYDnm2k2KIIC/Ac=
 github.com/google/go-cmp v0.3.0/go.mod h1:8QqcDgzrUqlUb/G2PQTWiueGozuR1884gddMywk6iLU=
 github.com/google/go-cmp v0.5.9 h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=
 github.com/google/go-cmp v0.5.9/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=

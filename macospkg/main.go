@@ -28,6 +28,7 @@ import (
 
 	"github.com/gohugoio/hugoreleaser-plugins-api/archiveplugin"
 	"github.com/gohugoio/hugoreleaser-plugins-api/model"
+	"github.com/gohugoio/hugoreleaser-plugins-api/server"
 )
 
 const (
@@ -36,12 +37,10 @@ const (
 
 func main() {
 	var cfg model.Config
-	server, err := execrpc.NewServer(
-		execrpc.ServerOptions[model.Config, archiveplugin.Request, any, model.Receipt]{
-			GetHasher:     nil,
-			DelayDelivery: false,
-			Init: func(v model.Config) error {
-				cfg = v
+	server, err := server.New(
+		server.Options[model.Config, archiveplugin.Request, any, model.Receipt]{
+			Init: func(c model.Config, prococol execrpc.ProtocolInfo) error {
+				cfg = c
 				return nil
 			},
 			Handle: func(call *execrpc.Call[archiveplugin.Request, any, model.Receipt]) {
