@@ -1,13 +1,16 @@
 module github.com/gohugoio/hugoreleaser-archive-plugins/macospkgremote
 
-go 1.19
+go 1.21.0
+
+toolchain go1.22.0
 
 require (
-	github.com/bep/helpers v0.4.0
-	github.com/bep/s3rpc v0.2.0
-	github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.0.0-20220909161834-88eb232d7eb7
-	github.com/gohugoio/hugoreleaser-plugins-api v0.7.0
-	golang.org/x/sync v0.0.0-20220907140024-f12130a52804
+	github.com/bep/execrpc v0.9.0
+	github.com/bep/helpers v0.5.0
+	github.com/bep/s3rpc v0.3.0
+	github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.1.0
+	github.com/gohugoio/hugoreleaser-plugins-api v0.7.1-0.20241219113101-e613cfc24c82
+	golang.org/x/sync v0.10.0
 )
 
 require (
@@ -30,11 +33,10 @@ require (
 	github.com/bep/awscreate v0.1.0 // indirect
 	github.com/bep/awscreate/s3rpccreate v0.2.0 // indirect
 	github.com/bep/buildpkg v0.1.0 // indirect
-	github.com/bep/execrpc v0.7.1 // indirect
 	github.com/bep/macosnotarylib v0.1.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.3-0.20220820150458-bfea432b1a9d // indirect
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
-	github.com/pelletier/go-toml/v2 v2.0.5 // indirect
+	github.com/oklog/ulid/v2 v2.1.0 // indirect
+	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 )

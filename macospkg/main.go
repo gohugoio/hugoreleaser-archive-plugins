@@ -21,39 +21,43 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/bep/execrpc"
 	"github.com/gohugoio/hugoreleaser-archive-plugins/macospkg/macospkglib"
 
 	// Hugoreleaser API
 
 	"github.com/gohugoio/hugoreleaser-plugins-api/archiveplugin"
 	"github.com/gohugoio/hugoreleaser-plugins-api/model"
-	"github.com/gohugoio/hugoreleaser-plugins-api/server"
 )
 
 const (
-	pluginName = "macospkg"
+	name = "macospkg"
 )
 
 func main() {
-
-	server, err := server.New(
-		func(d server.Dispatcher, req archiveplugin.Request) archiveplugin.Response {
-			d.Infof("Creating archive %s", req.OutFilename)
-
-			if err := req.Init(); err != nil {
-				return errResponse(err)
-			}
-
-			if len(req.Files) != 1 {
-				return errResponse(fmt.Errorf("this plugin currently support 1 file only (the binary), got %d", len(req.Files)))
-			}
-
-			if err := createArchive(d, req); err != nil {
-				return errResponse(err)
-			}
-
-			// Empty response is a success.
-			return archiveplugin.Response{}
+	var cfg model.Config
+	server, err := execrpc.NewServer(
+		execrpc.ServerOptions[model.Config, archiveplugin.Request, any, model.Receipt]{
+			GetHasher:     nil,
+			DelayDelivery: false,
+			Init: func(v model.Config) error {
+				cfg = v
+				return nil
+			},
+			Handle: func(call *execrpc.Call[archiveplugin.Request, any, model.Receipt]) {
+				infof := model.InfofFunc(call)
+				infof("Creating archive %s", call.Request.OutFilename)
+				var receipt model.Receipt
+				if len(call.Request.Files) != 1 {
+					receipt.Error = model.NewError(name, fmt.Errorf("this plugin currently support 1 file only (the binary), got %d", len(call.Request.Files)))
+				} else if cfg.Try {
+					// Do nothing.
+				} else if err := createArchive(infof, call.Request); err != nil {
+					receipt.Error = model.NewError(name, err)
+				}
+				receipt = <-call.Receipt()
+				call.Close(false, receipt)
+			},
 		},
 	)
 	if err != nil {
@@ -63,11 +67,9 @@ func main() {
 	if err := server.Start(); err != nil {
 		log.Fatalf("Failed to start server: %s", err)
 	}
-
-	_ = server.Wait()
 }
 
-func createArchive(d server.Dispatcher, req archiveplugin.Request) error {
+func createArchive(infof func(format string, args ...any), req archiveplugin.Request) error {
 	settings, err := model.FromMap[any, macospkglib.Settings](req.Settings)
 	if err != nil {
 		return err
@@ -75,7 +77,7 @@ func createArchive(d server.Dispatcher, req archiveplugin.Request) error {
 	settings.NeedsAppleSettings = true
 	_, err = macospkglib.BuildPkg(
 		settings,
-		d.Infof,
+		infof,
 		func(dir string) error {
 			file := req.Files[0]
 			target, err := os.OpenFile(filepath.Join(dir, file.TargetPath), os.O_CREATE|os.O_WRONLY, file.Mode)
@@ -90,14 +92,9 @@ func createArchive(d server.Dispatcher, req archiveplugin.Request) error {
 			defer sourc.Close()
 			_, err = io.Copy(target, sourc)
 			return err
-
 		},
 		req.OutFilename,
 	)
 
 	return err
-}
-
-func errResponse(err error) archiveplugin.Response {
-	return archiveplugin.Response{Error: model.NewError(pluginName, err)}
 }

@@ -28,6 +28,7 @@ import (
 
 	"github.com/gohugoio/hugoreleaser-archive-plugins/macospkg/macospkglib"
 
+	"github.com/bep/execrpc"
 	"github.com/bep/helpers/archivehelpers"
 	"github.com/bep/s3rpc"
 	"golang.org/x/sync/errgroup"
@@ -36,15 +37,13 @@ import (
 
 	"github.com/gohugoio/hugoreleaser-plugins-api/archiveplugin"
 	"github.com/gohugoio/hugoreleaser-plugins-api/model"
-	"github.com/gohugoio/hugoreleaser-plugins-api/server"
 )
 
 const (
-	pluginName = "macospkgremote"
+	name = "macospkgremote"
 )
 
 func main() {
-
 	if len(os.Args) > 1 && os.Args[1] == "localserver" {
 		if err := startLocalServer(); err != nil {
 			log.Fatal(err)
@@ -52,24 +51,29 @@ func main() {
 		return
 	}
 
-	server, err := server.New(
-		func(d server.Dispatcher, req archiveplugin.Request) archiveplugin.Response {
-			d.Infof("Creating archive %s", req.OutFilename)
-
-			if err := req.Init(); err != nil {
-				return errResponse(err)
-			}
-
-			if len(req.Files) != 1 {
-				return errResponse(fmt.Errorf("this plugin currently support 1 file only (the binary), got %d", len(req.Files)))
-			}
-
-			if err := createArchive(d, req); err != nil {
-				return errResponse(err)
-			}
-
-			// Empty response is a success.
-			return archiveplugin.Response{}
+	var cfg model.Config
+	server, err := execrpc.NewServer(
+		execrpc.ServerOptions[model.Config, archiveplugin.Request, any, model.Receipt]{
+			GetHasher:     nil,
+			DelayDelivery: false,
+			Init: func(v model.Config) error {
+				cfg = v
+				return nil
+			},
+			Handle: func(call *execrpc.Call[archiveplugin.Request, any, model.Receipt]) {
+				infof := model.InfofFunc(call)
+				infof("Creating archive %s", call.Request.OutFilename)
+				var receipt model.Receipt
+				if len(call.Request.Files) != 1 {
+					receipt.Error = model.NewError(name, fmt.Errorf("this plugin currently support 1 file only (the binary), got %d", len(call.Request.Files)))
+				} else if cfg.Try {
+					// Do nothing.
+				} else if err := createArchive(infof, call.Request); err != nil {
+					receipt.Error = model.NewError(name, err)
+				}
+				receipt = <-call.Receipt()
+				call.Close(false, receipt)
+			},
 		},
 	)
 	if err != nil {
@@ -79,11 +83,9 @@ func main() {
 	if err := server.Start(); err != nil {
 		log.Fatalf("Failed to start server: %s", err)
 	}
-
-	_ = server.Wait()
 }
 
-func createArchive(d server.Dispatcher, req archiveplugin.Request) error {
+func createArchive(infof func(format string, args ...any), req archiveplugin.Request) error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Minute)
 	defer cancel()
 
@@ -100,7 +102,7 @@ func createArchive(d server.Dispatcher, req archiveplugin.Request) error {
 		s3rpc.ClientOptions{
 			Queue:   settings.Queue,
 			Timeout: 5 * time.Minute,
-			Infof:   d.Infof,
+			Infof:   infof,
 			AWSConfig: s3rpc.AWSConfig{
 				Bucket:          settings.Bucket,
 				AccessKeyID:     settings.AccessKeyID,
@@ -108,7 +110,6 @@ func createArchive(d server.Dispatcher, req archiveplugin.Request) error {
 			},
 		},
 	)
-
 	if err != nil {
 		return err
 	}
@@ -136,7 +137,7 @@ func createArchive(d server.Dispatcher, req archiveplugin.Request) error {
 		"package_version":    settings.PackageVersion,
 	}
 
-	res, err := client.Execute(ctx, pluginName, s3rpc.Input{Filename: tempFile.Name(), Metadata: metadata})
+	res, err := client.Execute(ctx, name, s3rpc.Input{Filename: tempFile.Name(), Metadata: metadata})
 	if err != nil {
 		return err
 	}
@@ -165,9 +166,8 @@ func startLocalServer() error {
 	infol := log.Printf
 
 	handlers := s3rpc.Handlers{
-		pluginName: func(ctx context.Context, input s3rpc.Input) (s3rpc.Output, error) {
-
-			infol("%s", pluginName)
+		name: func(ctx context.Context, input s3rpc.Input) (s3rpc.Output, error) {
+			infol("%s", name)
 
 			settings, err := model.FromMap[string, macospkglib.Settings](input.Metadata)
 			if err != nil {
@@ -194,7 +194,6 @@ func startLocalServer() error {
 				},
 				"",
 			)
-
 			if err != nil {
 				return s3rpc.Output{}, err
 			}
@@ -203,7 +202,6 @@ func startLocalServer() error {
 				Filename: filename,
 				Metadata: nil,
 			}, nil
-
 		},
 	}
 
@@ -243,15 +241,9 @@ func startLocalServer() error {
 
 	if err != nil && !errors.Is(err, context.Canceled) {
 		return err
-
 	}
 
 	infol("Done.")
 
 	return nil
-
-}
-
-func errResponse(err error) archiveplugin.Response {
-	return archiveplugin.Response{Error: model.NewError(pluginName, err)}
 }
