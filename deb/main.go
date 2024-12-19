@@ -23,9 +23,9 @@ import (
 
 	// Hugoreleaser API
 
+	"github.com/bep/execrpc"
 	"github.com/gohugoio/hugoreleaser-plugins-api/archiveplugin"
 	"github.com/gohugoio/hugoreleaser-plugins-api/model"
-	"github.com/gohugoio/hugoreleaser-plugins-api/server"
 
 	// nfpm
 	"github.com/goreleaser/nfpm/v2"
@@ -36,19 +36,26 @@ import (
 const name = "deb"
 
 func main() {
-	server, err := server.New(
-		func(d server.Dispatcher, req archiveplugin.Request) archiveplugin.Response {
-			d.Infof("Creating archive %s", req.OutFilename)
-
-			if err := req.Init(); err != nil {
-				return errResponse(err)
-			}
-
-			if err := createArchive(req); err != nil {
-				return errResponse(err)
-			}
-			// Empty response is a success.
-			return archiveplugin.Response{}
+	var archiveClient archiveClient
+	server, err := execrpc.NewServer(
+		execrpc.ServerOptions[model.Config, archiveplugin.Request, any, model.Receipt]{
+			GetHasher:     nil,
+			DelayDelivery: false,
+			Init: func(v model.Config) error {
+				archiveClient.cfg = v
+				return nil
+			},
+			Handle: func(call *execrpc.Call[archiveplugin.Request, any, model.Receipt]) {
+				model.Infof(call, "Creating archive %s", call.Request.OutFilename)
+				var receipt model.Receipt
+				if !archiveClient.cfg.Try {
+					if err := archiveClient.createArchive(call.Request); err != nil {
+						receipt.Error = model.NewError(name, err)
+					}
+				}
+				receipt = <-call.Receipt()
+				call.Close(false, receipt)
+			},
 		},
 	)
 	if err != nil {
@@ -58,8 +65,6 @@ func main() {
 	if err := server.Start(); err != nil {
 		log.Fatalf("Failed to start server: %s", err)
 	}
-
-	_ = server.Wait()
 }
 
 // Settings is fetched from archive_settings.custom_settings in the archive configuration.
@@ -79,12 +84,16 @@ type Settings struct {
 	VersionMetadata string
 }
 
-type debArchivist struct {
-	out   io.WriteCloser
-	files files.Contents
+type archiveClient struct {
+	cfg model.Config
+}
 
-	buildInfo model.BuildInfo
-	settings  Settings
+type debArchivist struct {
+	out         io.WriteCloser
+	files       files.Contents
+	projectInfo model.ProjectInfo
+	goInfo      model.GoInfo
+	settings    Settings
 }
 
 func (a *debArchivist) Add(sourceFilename, targetPath string, mode fs.FileMode) error {
@@ -101,17 +110,18 @@ func (a *debArchivist) Add(sourceFilename, targetPath string, mode fs.FileMode) 
 
 func (a *debArchivist) Finalize() error {
 	s := a.settings
-	b := a.buildInfo
+	g := a.goInfo
+	p := a.projectInfo
 
 	if s.PackageName == "" {
-		s.PackageName = b.Project
+		s.PackageName = p.Project
 	}
 
 	info := &nfpm.Info{
-		Platform:        b.Goos,
-		Arch:            b.Goarch,
+		Platform:        g.Goos,
+		Arch:            g.Goarch,
 		Name:            s.PackageName,
-		Version:         b.Tag,
+		Version:         p.Tag,
 		Section:         s.Section,
 		Priority:        s.Priority,
 		Epoch:           s.Epoch,
@@ -138,7 +148,7 @@ func (a *debArchivist) Finalize() error {
 	return packager.Package(info, a.out)
 }
 
-func createArchive(req archiveplugin.Request) error {
+func (c archiveClient) createArchive(req archiveplugin.Request) error {
 	if err := req.Init(); err != nil {
 		return err
 	}
@@ -155,21 +165,18 @@ func createArchive(req archiveplugin.Request) error {
 	}
 
 	archivist := &debArchivist{
-		out:       f,
-		buildInfo: req.BuildInfo,
-		settings:  settings,
+		out:         f,
+		projectInfo: c.cfg.ProjectInfo,
+		goInfo:      req.GoInfo,
+		settings:    settings,
 	}
 
 	for _, file := range req.Files {
 		if file.Mode == 0 {
-			file.Mode = 0644
+			file.Mode = 0o644
 		}
 		archivist.Add(file.SourcePathAbs, file.TargetPath, file.Mode)
 	}
 
 	return archivist.Finalize()
-}
-
-func errResponse(err error) archiveplugin.Response {
-	return archiveplugin.Response{Error: model.NewError(name, err)}
 }
