@@ -62,15 +62,16 @@ func main() {
 			Handle: func(call *execrpc.Call[archiveplugin.Request, any, model.Receipt]) {
 				infof := model.InfofFunc(call)
 				infof("Creating archive %s", call.Request.OutFilename)
-				var receipt model.Receipt
+				var rerr *model.Error
 				if len(call.Request.Files) != 1 {
-					receipt.Error = model.NewError(name, fmt.Errorf("this plugin currently support 1 file only (the binary), got %d", len(call.Request.Files)))
+					rerr = model.NewError(name, fmt.Errorf("this plugin currently support 1 file only (the binary), got %d", len(call.Request.Files)))
 				} else if cfg.Try {
 					// Do nothing.
 				} else if err := createArchive(infof, call.Request); err != nil {
-					receipt.Error = model.NewError(name, err)
+					rerr = model.NewError(name, err)
 				}
-				receipt = <-call.Receipt()
+				receipt := <-call.Receipt()
+				receipt.Error = rerr
 				call.Close(false, receipt)
 			},
 		},

@@ -46,13 +46,14 @@ func main() {
 			},
 			Handle: func(call *execrpc.Call[archiveplugin.Request, any, model.Receipt]) {
 				model.Infof(call, "Creating archive %s", call.Request.OutFilename)
-				var receipt model.Receipt
+				var rerr *model.Error
 				if !archiveClient.cfg.Try {
 					if err := archiveClient.createArchive(call.Request); err != nil {
-						receipt.Error = model.NewError(name, err)
+						rerr = model.NewError(name, err)
 					}
 				}
-				receipt = <-call.Receipt()
+				receipt := <-call.Receipt()
+				receipt.Error = rerr
 				call.Close(false, receipt)
 			},
 		},
