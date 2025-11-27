@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/bep/buildpkg"
 )
@@ -47,7 +48,7 @@ func BuildPkg(
 		Infof:                 infof,
 		Identifier:            settings.PackageIdentifier,
 		Version:               settings.PackageVersion,
-		SigningEntitlements:   settings.PackageEntitlements,
+		SigningEntitlements:   strings.Split(settings.PackageEntitlements, ","),
 		InstallLocation:       "/usr/local/bin",
 		Dir:                   workingDir,
 		SigningIdentity:       settings.AppleSigningIdentity,
@@ -122,8 +123,8 @@ type PackageSettings struct {
 	// E.g. v0.1.0
 	PackageVersion string `mapstructure:"package_version"`
 
-	// Entitlements to use when signing the package.
-	// E.g. []string{"com.apple.security.cs.allow-jit", "com.apple.security.cs.allow-unsigned-executable-memory"}
+	// Comma separated  entitlements to use when signing the package.
+	// E.g. "com.apple.security.cs.allow-jit, com.apple.security.cs.allow-unsigned-executable-memory"
 	// See https://github.com/wazero/wazero/issues/2393
-	PackageEntitlements []string `mapstructure:"package_entitlements"`
+	PackageEntitlements string `mapstructure:"package_entitlements"`
 }
