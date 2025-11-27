@@ -14,8 +14,8 @@ func BuildPkg(
 	settings Settings,
 	infof func(format string, args ...interface{}),
 	extractToDir func(dir string) error,
-	outFilename string) (string, error) {
-
+	outFilename string,
+) (string, error) {
 	if err := settings.Init(); err != nil {
 		return "", err
 	}
@@ -27,7 +27,7 @@ func BuildPkg(
 
 	// All the files in here will be packaged.
 	stagingDir := filepath.Join(workingDir, "staging")
-	if err := os.MkdirAll(stagingDir, 0777); err != nil {
+	if err := os.MkdirAll(stagingDir, 0o777); err != nil {
 		return "", err
 	}
 
@@ -37,7 +37,6 @@ func BuildPkg(
 
 	if outFilename == "" {
 		outFilename = filepath.Join(workingDir, "mypack.pkg")
-
 	}
 
 	if infof == nil {
@@ -48,6 +47,7 @@ func BuildPkg(
 		Infof:                 infof,
 		Identifier:            settings.PackageIdentifier,
 		Version:               settings.PackageVersion,
+		SigningEntitlements:   settings.PackageEntitlements,
 		InstallLocation:       "/usr/local/bin",
 		Dir:                   workingDir,
 		SigningIdentity:       settings.AppleSigningIdentity,
@@ -65,7 +65,6 @@ func BuildPkg(
 	}
 
 	return outFilename, err
-
 }
 
 // Settings is fetched from archive_settings.custom_settings in the archive configuration.
@@ -114,7 +113,6 @@ func (s *Settings) Init() error {
 		return fmt.Errorf("%s.package_version is required", what)
 	}
 	return nil
-
 }
 
 type PackageSettings struct {
@@ -123,4 +121,9 @@ type PackageSettings struct {
 	PackageIdentifier string `mapstructure:"package_identifier"`
 	// E.g. v0.1.0
 	PackageVersion string `mapstructure:"package_version"`
+
+	// Entitlements to use when signing the package.
+	// E.g. []string{"com.apple.security.cs.allow-jit", "com.apple.security.cs.allow-unsigned-executable-memory"}
+	// See https://github.com/wazero/wazero/issues/2393
+	PackageEntitlements []string `mapstructure:"package_entitlements"`
 }

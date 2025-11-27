@@ -48,6 +48,8 @@ github.com/bep/awscreate/s3rpccreate v0.2.0 h1:VnvRnJiZEF1gPnc/bzlKNif1iQjpApSb3
 github.com/bep/awscreate/s3rpccreate v0.2.0/go.mod h1:BBBdItVHMbeqs+FD57Hv0o/bT5m22j28kANxJU5Gd2o=
 github.com/bep/buildpkg v0.1.0 h1:CSMyAlAv+ppZ91RNwdegsXDPnfSfBCCZq6Gv1vJOnZ0=
 github.com/bep/buildpkg v0.1.0/go.mod h1:4kB6A8qP0+MfEi5XRMkFO4J+qV/EIJrAVwjtpemWadY=
+github.com/bep/buildpkg v0.2.0 h1:5asLiDUYmUkRI8jvUywWfLaJ+f4tMpExnWqJgR77Dn4=
+github.com/bep/buildpkg v0.2.0/go.mod h1:4kB6A8qP0+MfEi5XRMkFO4J+qV/EIJrAVwjtpemWadY=
 github.com/bep/execrpc v0.10.0 h1:Y8S8pZOFZI/zo95RMqgri98eIFaZEqZ41tbF89hSx/A=
 github.com/bep/execrpc v0.10.0/go.mod h1:lGHGK8NX0KvfhlRNH/SebW1quHGwXFeE3Ba+2KLtmrM=
 github.com/bep/helpers v0.5.0 h1:rneezhnG7GzLFlsEWO/EnleaBRuluBDGFimalO6Y50o=
