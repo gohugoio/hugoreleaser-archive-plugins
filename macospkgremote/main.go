@@ -133,8 +133,9 @@ func createArchive(infof func(format string, args ...any), req archiveplugin.Req
 	}
 
 	metadata := map[string]string{
-		"package_identifier": settings.PackageIdentifier,
-		"package_version":    settings.PackageVersion,
+		"package_identifier":   settings.PackageIdentifier,
+		"package_version":      settings.PackageVersion,
+		"package_entitlements": settings.PackageEntitlements,
 	}
 
 	res, err := client.Execute(ctx, name, s3rpc.Input{Filename: tempFile.Name(), Metadata: metadata})
