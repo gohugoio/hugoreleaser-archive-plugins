@@ -65,6 +65,10 @@ github.com/frankban/quicktest v1.14.6 h1:7Xjx+VpznH+oBnejlPUj8oUpdxnVs4f8XU8WnHk
 github.com/frankban/quicktest v1.14.6/go.mod h1:4ptaffx2x8+WTWXmUCuVU6aPUX1/Mz7zb5vbUoiM6w0=
 github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.1.0 h1:jMIY8uVn6Ae61nT1TnXu+9vumadv+rbqtbj7zKOysLk=
 github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.1.0/go.mod h1:HqHxC0Xe+d8HdhJb247HvPEuK2m2FHhzA3gNYxKnlS0=
+github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.2.0 h1:JcdjO+bTuM7c1xBbs1NjBGGPFNbpzvyDN2W+UZjmQGw=
+github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.2.0/go.mod h1:YPse1NoTMZ9djrG/kOw1hwMwoQkrNp25bkSu2z72kVI=
+github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.3.0 h1:reUmDaVpk7OnqYh2P1nKpfZWAvh/tWvTt1sxxupf+f0=
+github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.3.0/go.mod h1:tZSEmE4IVNf6dPI3g7hzejmuC8j++RUN5TLTF3/HbVg=
 github.com/gohugoio/hugoreleaser-plugins-api v0.8.0 h1:H3qH9Ra7yg5ZZLFtkBYJqTbr1oAO7wkysMvcmSUauV0=
 github.com/gohugoio/hugoreleaser-plugins-api v0.8.0/go.mod h1:Qheg3q6TF7pq9etJBNceTqGaM1VfkYDnm2k2KIIC/Ac=
 github.com/golang-jwt/jwt/v4 v4.4.3-0.20220820150458-bfea432b1a9d h1:g83sVsMB9c5zW6RG7a767AkmCkAIbQEX6Z7UvEKgTjU=
