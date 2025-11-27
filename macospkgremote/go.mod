@@ -32,7 +32,7 @@ require (
 	github.com/aws/smithy-go v1.13.2 // indirect
 	github.com/bep/awscreate v0.1.0 // indirect
 	github.com/bep/awscreate/s3rpccreate v0.2.0 // indirect
-	github.com/bep/buildpkg v0.1.0 // indirect
+	github.com/bep/buildpkg v0.2.0 // indirect
 	github.com/bep/macosnotarylib v0.1.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.3-0.20220820150458-bfea432b1a9d // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
