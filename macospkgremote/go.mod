@@ -8,7 +8,7 @@ require (
 	github.com/bep/execrpc v0.10.0
 	github.com/bep/helpers v0.5.0
 	github.com/bep/s3rpc v0.3.0
-	github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.1.0
+	github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.3.0
 	github.com/gohugoio/hugoreleaser-plugins-api v0.8.0
 	golang.org/x/sync v0.10.0
 )
