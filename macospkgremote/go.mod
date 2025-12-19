@@ -8,7 +8,7 @@ require (
 	github.com/bep/execrpc v0.10.0
 	github.com/bep/helpers v0.5.0
 	github.com/bep/s3rpc v0.3.0
-	github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.4.0
+	github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.5.0
 	github.com/gohugoio/hugoreleaser-plugins-api v0.8.0
 	golang.org/x/sync v0.10.0
 )
@@ -32,7 +32,7 @@ require (
 	github.com/aws/smithy-go v1.13.2 // indirect
 	github.com/bep/awscreate v0.1.0 // indirect
 	github.com/bep/awscreate/s3rpccreate v0.2.0 // indirect
-	github.com/bep/buildpkg v0.2.0 // indirect
+	github.com/bep/buildpkg v0.3.0 // indirect
 	github.com/bep/macosnotarylib v0.1.0 // indirect
 	github.com/golang-jwt/jwt/v4 v4.4.3-0.20220820150458-bfea432b1a9d // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect

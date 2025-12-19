@@ -48,6 +48,8 @@ github.com/bep/awscreate/s3rpccreate v0.2.0 h1:VnvRnJiZEF1gPnc/bzlKNif1iQjpApSb3
 github.com/bep/awscreate/s3rpccreate v0.2.0/go.mod h1:BBBdItVHMbeqs+FD57Hv0o/bT5m22j28kANxJU5Gd2o=
 github.com/bep/buildpkg v0.2.0 h1:5asLiDUYmUkRI8jvUywWfLaJ+f4tMpExnWqJgR77Dn4=
 github.com/bep/buildpkg v0.2.0/go.mod h1:4kB6A8qP0+MfEi5XRMkFO4J+qV/EIJrAVwjtpemWadY=
+github.com/bep/buildpkg v0.3.0 h1:uMa6Lk6eRjHTM9roaOz4il2MsxXzexExTegoSxEt+cA=
+github.com/bep/buildpkg v0.3.0/go.mod h1:4kB6A8qP0+MfEi5XRMkFO4J+qV/EIJrAVwjtpemWadY=
 github.com/bep/execrpc v0.10.0 h1:Y8S8pZOFZI/zo95RMqgri98eIFaZEqZ41tbF89hSx/A=
 github.com/bep/execrpc v0.10.0/go.mod h1:lGHGK8NX0KvfhlRNH/SebW1quHGwXFeE3Ba+2KLtmrM=
 github.com/bep/helpers v0.5.0 h1:rneezhnG7GzLFlsEWO/EnleaBRuluBDGFimalO6Y50o=
@@ -65,6 +67,8 @@ github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.3.0 h1:reUmDaVpk7On
 github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.3.0/go.mod h1:tZSEmE4IVNf6dPI3g7hzejmuC8j++RUN5TLTF3/HbVg=
 github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.4.0 h1:BBZ7fIpCUi2N96XyfTHRB7eG0pmQ8bECIA0HQKMPPG4=
 github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.4.0/go.mod h1:tZSEmE4IVNf6dPI3g7hzejmuC8j++RUN5TLTF3/HbVg=
+github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.5.0 h1:v+w4lRFhP41bSUzwKZl6qNy6O2fhE0kq/P2W/Nv5LP8=
+github.com/gohugoio/hugoreleaser-archive-plugins/macospkg v0.5.0/go.mod h1:vOwPRUwjbfWaBNOQyZQMj3P4p2gvAb5nAA8BkKnj6Lw=
 github.com/gohugoio/hugoreleaser-plugins-api v0.8.0 h1:H3qH9Ra7yg5ZZLFtkBYJqTbr1oAO7wkysMvcmSUauV0=
 github.com/gohugoio/hugoreleaser-plugins-api v0.8.0/go.mod h1:Qheg3q6TF7pq9etJBNceTqGaM1VfkYDnm2k2KIIC/Ac=
 github.com/golang-jwt/jwt/v4 v4.4.3-0.20220820150458-bfea432b1a9d h1:g83sVsMB9c5zW6RG7a767AkmCkAIbQEX6Z7UvEKgTjU=
