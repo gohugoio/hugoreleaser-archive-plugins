@@ -44,11 +44,16 @@ func BuildPkg(
 		infof = log.Printf
 	}
 
+	var signingEntitlements []string
+	if settings.PackageEntitlements != "" {
+		signingEntitlements = strings.Split(settings.PackageEntitlements, ",")
+	}
+
 	opts := buildpkg.Options{
 		Infof:                 infof,
 		Identifier:            settings.PackageIdentifier,
 		Version:               settings.PackageVersion,
-		SigningEntitlements:   strings.Split(settings.PackageEntitlements, ","),
+		SigningEntitlements:   signingEntitlements,
 		InstallLocation:       "/usr/local/bin",
 		Dir:                   workingDir,
 		SigningIdentity:       settings.AppleSigningIdentity,
@@ -113,6 +118,9 @@ func (s *Settings) Init() error {
 	if s.PackageSettings.PackageVersion == "" {
 		return fmt.Errorf("%s.package_version is required", what)
 	}
+
+	s.PackageEntitlements = strings.TrimSpace(s.PackageEntitlements)
+
 	return nil
 }
 
